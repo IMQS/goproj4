@@ -2,9 +2,9 @@ package coordinatesystem
 
 import (
 	"fmt"
-	"goproj4/globals"
-	"goproj4/projection"
-	"goproj4/ref"
+	"github.com/IMQS/goproj4/globals"
+	"github.com/IMQS/goproj4/projection"
+	"github.com/IMQS/goproj4/ref"
 	"math"
 	"strconv"
 	"strings"

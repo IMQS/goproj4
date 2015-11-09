@@ -2,7 +2,7 @@ package projection
 
 import (
 	"fmt"
-	"goproj4/globals"
+	"github.com/IMQS/goproj4/globals"
 	"math"
 )
 

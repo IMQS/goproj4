@@ -2,8 +2,8 @@ package goproj4
 
 import (
 	"fmt"
-	"goproj4/coordinatesystem"
-	"goproj4/globals"
+	"github.com/IMQS/goproj4/coordinatesystem"
+	"github.com/IMQS/goproj4/globals"
 	"strings"
 )
 

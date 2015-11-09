@@ -1,7 +1,7 @@
 package projection
 
 import (
-	"goproj4/globals"
+	"github.com/IMQS/goproj4/globals"
 )
 
 func NewLatLon(params map[string]float64) *Projection {
