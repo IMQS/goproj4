@@ -1,8 +1,9 @@
 package coordinatesystem
 
 import (
-	"goproj4/globals"
 	"testing"
+
+	"github.com/IMQS/goproj4/globals"
 )
 
 // 128410.08539230417 445806.50796043128 100
@@ -18,19 +19,31 @@ func TestNewCoordinateSystem(t *testing.T) {
 		t.Errorf("Expected %v : Found %v", 52.15616055555555, cs.FloatParams["lat_0"])
 	}
 
-	plh := cs.ToLatLon(&globals.XYZ{128410.08539230417, 445806.50796043128, 100})
+	from := &globals.XYZ{
+		X: 128410.08539230417,
+		Y: 445806.50796043128,
+		Z: 100,
+	}
+	plh := cs.Inverse(from)
 	// Convert back to actual
 	plh.Phi = plh.Phi * globals.RAD_TO_DEG
 	plh.Lam = plh.Lam * globals.RAD_TO_DEG
-	if plh.Phi != 52.000000017476815 {
-		t.Errorf("Expected %v : Found %v diff %v", 52.000000017476815, plh.Phi, plh.Phi-52.000000017476815)
+
+	expected := &globals.PLH{
+		Phi:    52.00096942804018,
+		Lam:    5.00037918470534,
+		Height: 100,
 	}
 
-	if plh.Lam != 5.000000001137788 {
-		t.Errorf("Expected %v : Found %v diff %v", 5.000000001137788, plh.Lam, plh.Lam-5.000000001137788)
+	if plh.Phi != expected.Phi {
+		t.Errorf("Expected %v : Found %v diff %v", expected.Phi, plh.Phi, plh.Phi-expected.Phi)
 	}
 
-	if plh.Height != 143.61679825000465 {
-		t.Errorf("Expected %v : Found %v diff %v", 143.61679825000465, plh.Height, plh.Height-143.61679825000465)
+	if plh.Lam != expected.Lam {
+		t.Errorf("Expected %v : Found %v diff %v", expected.Lam, plh.Lam, plh.Lam-expected.Lam)
+	}
+
+	if plh.Height != expected.Height {
+		t.Errorf("Expected %v : Found %v diff %v", expected.Height, plh.Height, plh.Height-expected.Height)
 	}
 }

@@ -2,9 +2,10 @@ package goproj4
 
 import (
 	"fmt"
+	"strings"
+
 	"github.com/IMQS/goproj4/coordinatesystem"
 	"github.com/IMQS/goproj4/globals"
-	"strings"
 )
 
 type Cs2Cs struct {
@@ -56,7 +57,7 @@ func (cs2cs *Cs2Cs) Transform(xyz []*globals.XYZ) { //  (plh []*globals.PLH) {
 
 	if cs2cs.FromCS.IsGeocent() {
 	} else if !cs2cs.FromCS.IsLatlon() {
-		for idx, _ := range xyz {
+		for idx := range xyz {
 			plh[idx] = cs2cs.FromCS.Inverse(xyz[idx])
 		}
 	}
@@ -66,7 +67,7 @@ func (cs2cs *Cs2Cs) Transform(xyz []*globals.XYZ) { //  (plh []*globals.PLH) {
 		cs2cs.ToCS.DatumType() == globals.DATUM3PARAM ||
 		cs2cs.ToCS.DatumType() == globals.DATUM7PARAM {
 
-		for idx, _ := range plh {
+		for idx := range plh {
 			xyz[idx] = cs2cs.FromCS.GeodeticToGeocentric(plh[idx])
 
 			if cs2cs.FromCS.DatumType() == globals.DATUM3PARAM ||
@@ -85,13 +86,13 @@ func (cs2cs *Cs2Cs) Transform(xyz []*globals.XYZ) { //  (plh []*globals.PLH) {
 
 	if cs2cs.ToCS.IsGeocent() {
 	} else if !cs2cs.ToCS.IsLatlon() {
-		for idx, _ := range plh {
+		for idx := range plh {
 			xyz[idx] = cs2cs.ToCS.Forward(plh[idx])
 		}
 	}
 
 	if cs2cs.ToCS.IsLatlon() {
-		for idx, _ := range xyz {
+		for idx := range xyz {
 			xyz[idx].X = plh[idx].Phi * globals.RAD_TO_DEG
 			xyz[idx].Y = plh[idx].Lam * globals.RAD_TO_DEG
 			xyz[idx].Z = plh[idx].Height
